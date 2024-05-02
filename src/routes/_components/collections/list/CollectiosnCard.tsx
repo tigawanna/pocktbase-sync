@@ -17,8 +17,8 @@ export function CollectiosnCard({ localPB,remotePB, collection }: CollectiosnCar
       key={collection.id}
       className={
         checked
-          ? "brightness-75 relative   h-24 w-[95%] md:w-[40%] lg:w-[30%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group"
-          : "relative h-24 w-[95%]   md:w-[40%] lg:w-[30%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group"
+          ? "brightness-75 relative   w-[95%] md:w-[40%] lg:w-[30%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group"
+          : "relative w-[95%]   md:w-[40%] lg:w-[30%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group"
       }
     >
       <h2 className="text-2xl "> {collection.name}</h2>

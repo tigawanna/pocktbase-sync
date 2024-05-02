@@ -5,14 +5,10 @@ import {
 } from "rakkasjs";
 import ErrorBoundaryComponent from "@/components/wrappers/ErrorBoundaryComponent";
 import "./index.css";
-
-
 import { TailwindIndicator } from "@/components/others/tailwind-indicator";
-import { MainFooter } from "./_components/sections/MainFooter";
 import { Toolbar } from "@/routes/_components/sections/navigation/Toolbar";
 import { Toaster } from "@/components/shadcn/ui/sonner";
 import { getSSRFriendlyTheme } from "@/lib/rakkas/theme";
-import "@toast-ui/editor/dist/toastui-editor.css";
 import "@/components/pagination/pagination.css";
 function MainLayout({ children }: LayoutProps) {
   // useHead({
@@ -20,11 +16,11 @@ function MainLayout({ children }: LayoutProps) {
   // })
   return (
     <ErrorBoundaryComponent>
-      <div className="flex h-full w-full  flex-col items-center justify-center bg-base-200 ">
+      <div className="flex h-full min-h-screen w-full  flex-col items-center justify-center ">
         <Toolbar />
         {children}
         <TailwindIndicator />
-        <MainFooter />
+
         <ClientSuspense fallback={<div className="h-8 " />}>
           <Toaster richColors className="" />
         </ClientSuspense>
@@ -36,10 +32,10 @@ MainLayout.preload = (ctx: PreloadContext) => {
   const theme = getSSRFriendlyTheme(ctx.requestContext);
   return {
     head: {
-      title: "Lavington liquor store",
+      title: "Pocketbase sync",
 
       description:
-        "fast, reliable, & affordable alcohol shopping in nairobi, kenya. explore pur wide collection of liquor , Wines & Spirits ",
+        "Sync your remote  Pocketbase instance with your local instance ",
       htmlAttributes: { "data-theme": theme },
       elements: [
         {

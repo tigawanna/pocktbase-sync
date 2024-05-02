@@ -1,4 +1,3 @@
-import { PBTimeStamp } from "@/lib/pb/components/PBTimestamp";
 import { pbTryCatchWrapper } from "@/lib/pb/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import type Client from "pocketbase";
@@ -32,7 +31,7 @@ export function CollectionsList({ localPB,remotePB }: CollectionsListProps) {
   }
 
   return (
-    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center">
+    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center ">
       <ul className="w-full h-full flex flex-wrap items-center justify-center gap-2">
         {collection_list?.map((coll) => {
           return (
