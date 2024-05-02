@@ -8,8 +8,7 @@ interface CollectionsListProps {
   remotePB: Client;
 }
 
-export function CollectionsList({ localPB,remotePB }: CollectionsListProps) {
-
+export function CollectionsList({ localPB, remotePB }: CollectionsListProps) {
   const query = useSuspenseQuery({
     queryKey: ["collections"],
     queryFn: () => {
