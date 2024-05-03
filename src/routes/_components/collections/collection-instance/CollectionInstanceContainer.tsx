@@ -1,4 +1,4 @@
-import { useFormHook } from "@/components/form/useForm";
+
 import {
   Accordion,
   AccordionContent,
@@ -6,12 +6,9 @@ import {
   AccordionTrigger,
 } from "@/components/shadcn/ui/accordion";
 import { useState } from "react";
-
 import { CollectionInstanceForm } from "./CollectionInstanceForm";
-import type { CollectionInstanceType, PBClientInstances } from "./types";
+import type { PBClientInstances } from "./types";
 import { InstanceAdminContainer } from "../collection-admin-conteniner/InstanceAdminContainer";
-
-type CollectionInstanceContainerForm = CollectionInstanceType;
 
 interface CollectionInstanceContainerProps {}
 

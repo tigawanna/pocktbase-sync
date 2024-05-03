@@ -13,12 +13,7 @@ export function CollectionInstanceForm({
   instances,
   setInstances,
 }: CollectionInstanceFormProps) {
-  // const { input, setInput } = useFormHook<CollectionInstanceType>({
-  //   initialValues: {
-  //     instanceKey,
-  //     url: instances[instanceKey].url,
-  //   },
-  // });
+
 
  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 setInstances((prev) => {
