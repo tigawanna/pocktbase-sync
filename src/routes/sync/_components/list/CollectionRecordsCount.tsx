@@ -12,7 +12,7 @@ export function CollectionRecordsInfo({
   collectionName,
 }: CollectionRecordsInfoProps) {
   const query = useSuspenseQuery({
-    queryKey: ["collections", collectionName],
+    queryKey: ["collections", collectionName,pb.baseUrl],
     queryFn: () => {
       return pbTryCatchWrapper(pb.collection(collectionName).getList(1, 1));
     },

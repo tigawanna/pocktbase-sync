@@ -5,22 +5,18 @@ import {
   PocketbaseInstanceAdminSignin,
   PocketbaseInstanceAdminSignout,
 } from "./PocketbaseInstanceAuth";
-import type Client from "pocketbase";
 import { CollectionsList } from "./list/CollectionsList";
+import { useDynamicPoscketBaseInstance } from "./utils/use-pocketbase";
 
 interface PocketbaseInstanceProps {
-  primaryPB: Client;
-  secondaryPB: Client;
   instance: UsePoscketBaseInstance;
 }
 
-export function PocketbaseInstance({
-  primaryPB,
-  secondaryPB,
-  instance,
-}: PocketbaseInstanceProps) {
+export function PocketbaseInstance({ instance }: PocketbaseInstanceProps) {
+  const { primaryPB, secondaryPB } = useDynamicPoscketBaseInstance({
+    instanceKey: instance.instanceKey,
+  });
 
-  
   const query = useSuspenseQuery({
     queryKey: ["collection-admin", instance.instanceKey],
     queryFn: () => {
@@ -45,31 +41,17 @@ export function PocketbaseInstance({
       <div className="w-full flex flex-col md:flex-row  gap-2 p-[3%] justify-center items-center ">
         <div className="w-full flex flex-col justify-center items-center">
           <div className="">{admin.admin.email}</div>
-          {instance.instanceKey === "primary" ? (
-            <div className="text-sm line-clamp-1">{primaryPB.baseUrl}</div>
-          ) : (
-            <div className="text-sm line-clamp-1">{secondaryPB.baseUrl}</div>
-          )}
+          <div className="text-sm line-clamp-1">{primaryPB.baseUrl}</div>
         </div>
         <div className="w-full flex justify-center items-center  ">
-          {instance.instanceKey === "primary" ? (
-            <PocketbaseInstanceAdminSignout
-              pb={primaryPB}
-              instanceKey={instance.instanceKey}
-            />
-          ) : (
-            <PocketbaseInstanceAdminSignout
-              pb={secondaryPB}
-              instanceKey={instance.instanceKey}
-            />
-          )}
+          <PocketbaseInstanceAdminSignout
+            pb={primaryPB}
+            instanceKey={instance.instanceKey}
+          />
         </div>
       </div>
-      {instance.instanceKey === "primary" ? (
-        <CollectionsList localPB={primaryPB} remotePB={secondaryPB} />
-      ) : (
-        <CollectionsList localPB={secondaryPB} remotePB={primaryPB} />
-      )}
+      <CollectionsList instance={instance} localPB={primaryPB} remotePB={secondaryPB} />
+
     </div>
   );
 }

@@ -2,15 +2,17 @@ import { pbTryCatchWrapper } from "@/lib/pb/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import type Client from "pocketbase";
 import { CollectiosnCard } from "./CollectiosnCard";
+import type{ UsePoscketBaseInstance } from "../type";
 
 interface CollectionsListProps {
   localPB: Client;
   remotePB: Client;
+  instance: UsePoscketBaseInstance;
 }
 
-export function CollectionsList({ localPB, remotePB }: CollectionsListProps) {
-  const query = useSuspenseQuery({
-    queryKey: ["collections"],
+export function CollectionsList({ localPB, remotePB, instance }: CollectionsListProps) {
+const query = useSuspenseQuery({
+    queryKey: ["collections",localPB.baseUrl],
     queryFn: () => {
       return pbTryCatchWrapper(localPB.collections.getFullList({}));
     },

@@ -16,7 +16,7 @@ export function PocketbaseInstanceForm({
     updateInstance(instanceKey, e.target.value);
   }
   return (
-    <form className="w-full px-3 bg-base-100 rounded p-[5%]">
+    <form className="w-full  rounded px-5">
       <PbTheTextInput
         field_key={"url"}
         field_name={`${instanceKey} pocketbase url`}

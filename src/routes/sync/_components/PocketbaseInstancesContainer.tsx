@@ -14,8 +14,7 @@ interface PocketbaseInstancesContainerProps {}
 
 export function PocketbaseInstancesContainer({}: PocketbaseInstancesContainerProps) {
   const instances = useInstanceStore((state) => state.instance);
-  const primaryPB = usePoscketBaseInstance(instances.primary);
-  const secondaryPB = usePoscketBaseInstance(instances.secondary);
+
 
   if (!instances) {
     return (
@@ -46,12 +45,12 @@ export function PocketbaseInstancesContainer({}: PocketbaseInstancesContainerPro
         <Suspense
           fallback={<div className="w-full h-[300px] bg-base-200 skeleton" />}
         >
-          <PocketbaseInstance primaryPB={primaryPB} secondaryPB={secondaryPB} instance={instances.primary} />
+          <PocketbaseInstance  instance={instances.primary} />
         </Suspense>
         <Suspense
           fallback={<div className="w-full h-[300px] bg-base-200 skeleton" />}
         >
-          <PocketbaseInstance primaryPB={primaryPB} secondaryPB={secondaryPB} instance={instances.secondary} />
+          <PocketbaseInstance  instance={instances.secondary} />
         </Suspense>
       </div>
     </div>
