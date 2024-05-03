@@ -3,15 +3,22 @@ import type { CollectionModel } from "pocketbase";
 import type Client from "pocketbase";
 import { CollectionRecordsInfo } from "./CollectionRecordsCount";
 import { Suspense } from "react";
+import type { UsePoscketBaseInstance } from "../../type";
+import { CloneCollection } from "./CloneCollection";
 
 interface CollectiosnCardProps {
-  localPB: Client;
-  remotePB: Client;
+  primaryPB: Client;
+  secondaryPB: Client;
   collection: CollectionModel;
+  instance: UsePoscketBaseInstance;
 }
 
-export function CollectiosnCard({ localPB,remotePB, collection }: CollectiosnCardProps) {
-  const checked = false;
+export function CollectiosnCard({
+  primaryPB,
+  secondaryPB,
+  collection,
+  instance,
+}: CollectiosnCardProps) {
   return (
     <li
       key={collection.id}
@@ -26,10 +33,19 @@ export function CollectiosnCard({ localPB,remotePB, collection }: CollectiosnCar
           label="Created"
           className="w-full justify-start"
         />
+        {/* <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
+          <CloneCollection
+            collection={collection}
+            instance={instance}
+            primaryPB={primaryPB}
+            secondaryPB={secondaryPB}
+          />
+        </Suspense> */}
+
         <div className="w-full flex justify-between gap-2 ">
           <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
             <CollectionRecordsInfo
-              pb={localPB}
+              pb={primaryPB}
               collectionName={collection.name}
             />
           </Suspense>

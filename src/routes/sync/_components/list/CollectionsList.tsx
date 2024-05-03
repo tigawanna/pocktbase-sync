@@ -1,20 +1,20 @@
 import { pbTryCatchWrapper } from "@/lib/pb/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import type Client from "pocketbase";
-import { CollectiosnCard } from "./CollectiosnCard";
+import { CollectiosnCard } from "./card/CollectiosnCard";
 import type{ UsePoscketBaseInstance } from "../type";
 
 interface CollectionsListProps {
-  localPB: Client;
-  remotePB: Client;
+  primaryPB: Client;
+  secondaryPB: Client;
   instance: UsePoscketBaseInstance;
 }
 
-export function CollectionsList({ localPB, remotePB, instance }: CollectionsListProps) {
+export function CollectionsList({ primaryPB, secondaryPB, instance }: CollectionsListProps) {
 const query = useSuspenseQuery({
-    queryKey: ["collections",localPB.baseUrl],
+    queryKey: ["collections",primaryPB.baseUrl],
     queryFn: () => {
-      return pbTryCatchWrapper(localPB.collections.getFullList({}));
+      return pbTryCatchWrapper(primaryPB.collections.getFullList({}));
     },
     staleTime: 1000 * 60 * 60 * 24,
   });
@@ -38,9 +38,10 @@ const query = useSuspenseQuery({
           return (
             <CollectiosnCard
               key={coll.id}
-              localPB={localPB}
-              remotePB={remotePB}
+              primaryPB={primaryPB}
+              secondaryPB={secondaryPB}
               collection={coll}
+              instance={instance}
             />
           );
         })}
@@ -64,23 +65,4 @@ return (
 );
 }
 
-// <table className="table justify-between">
-//   {/* head */}
-//   <thead>
-//     <tr>
-//       <th>Name</th>
-//       <th>Created</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     {collection_list?.map((coll) => {
-//       return (
-//         <tr key={coll.id}>
 
-//           <td>{coll.name}</td>
-//           <td>{coll.created}</td>
-//         </tr>
-//       );
-//     })}
-//   </tbody>
-// </table>

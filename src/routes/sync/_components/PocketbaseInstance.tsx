@@ -57,8 +57,8 @@ export function PocketbaseInstance({ instance }: PocketbaseInstanceProps) {
       <Suspense fallback={<CollectionsListSuspenseFallback />}>
         <CollectionsList
           instance={instance}
-          localPB={primaryPB}
-          remotePB={secondaryPB}
+          primaryPB={primaryPB}
+          secondaryPB={secondaryPB}
         />
       </Suspense>
     </div>
