@@ -1,6 +1,6 @@
 import { PbTheTextInput } from "@/lib/pb/components/form/input-parts/PBTheTextInput";
 import type { UsePoscketBaseInstance } from "./type";
-import { useInstanceStore } from "@/stpres/instance-store";
+import { useInstanceStore } from "@/stores/instance-store";
 
 interface PocketbaseInstanceFormProps {
   instanceKey: UsePoscketBaseInstance["instanceKey"];

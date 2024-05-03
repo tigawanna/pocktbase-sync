@@ -1,6 +1,6 @@
-import { Suspense, useState } from "react";
+import { Suspense} from "react";
 import { PocketbaseInstance } from "./PocketbaseInstance";
-import { useInstanceStore } from "@/stpres/instance-store";
+import { useInstanceStore } from "@/stores/instance-store";
 import { PocketbaseInstanceForm } from "./PocketbaseInstanceForm";
 import {
   Accordion,
@@ -8,11 +8,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/shadcn/ui/accordion";
+import { usePoscketBaseInstance } from "./utils/use-pocketbase";
 
 interface PocketbaseInstancesContainerProps {}
 
 export function PocketbaseInstancesContainer({}: PocketbaseInstancesContainerProps) {
   const instances = useInstanceStore((state) => state.instance);
+  const primaryPB = usePoscketBaseInstance(instances.primary);
+  const secondaryPB = usePoscketBaseInstance(instances.secondary);
+
   if (!instances) {
     return (
       <div className="w-full min-h-screen h-full flex flex-col items-center justify-center">
@@ -42,12 +46,12 @@ export function PocketbaseInstancesContainer({}: PocketbaseInstancesContainerPro
         <Suspense
           fallback={<div className="w-full h-[300px] bg-base-200 skeleton" />}
         >
-          <PocketbaseInstance instance={instances.primary} />
+          <PocketbaseInstance primaryPB={primaryPB} secondaryPB={secondaryPB} instance={instances.primary} />
         </Suspense>
         <Suspense
           fallback={<div className="w-full h-[300px] bg-base-200 skeleton" />}
         >
-          <PocketbaseInstance instance={instances.secondary} />
+          <PocketbaseInstance primaryPB={primaryPB} secondaryPB={secondaryPB} instance={instances.secondary} />
         </Suspense>
       </div>
     </div>

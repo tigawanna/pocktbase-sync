@@ -12,9 +12,8 @@ type PBInstanceType = {
       url: string;
     };
   };
-  updateInstance: (key: "primary" | "secondary", url: string) => void;
+updateInstance: (key: "primary" | "secondary", url: string) => void;
 };
-
 
 export const useInstanceStore = create<PBInstanceType>()(
   persist(
@@ -28,8 +27,8 @@ export const useInstanceStore = create<PBInstanceType>()(
           instanceKey: "secondary",
           url: "https://pocketbase.io/demo",
         },
-
       },
+
       updateInstance: (key: "primary" | "secondary", url: string) => {
         set((state: PBInstanceType) => {
           return {
@@ -45,7 +44,7 @@ export const useInstanceStore = create<PBInstanceType>()(
       },
     }),
     {
-      name: "food-storage", // name of item in the storage (must be unique)
+      name: "instance-storage", // name of item in the storage (must be unique)
       //   storage: createJSONStorage(() => sessionStorage), // (optional) by default the 'localStorage' is used
     },
   ),

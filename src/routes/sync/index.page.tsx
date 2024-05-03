@@ -3,7 +3,7 @@ import { PocketbaseInstancesContainer } from "./_components/PocketbaseInstancesC
 export default function SyncPage({}: PageProps) {
   return (
     <div className="w-full h-full min-h-screen  flex flex-col items-center justify-center">
-      <div className="w-full h-full flex gap-2 *:bg-base-200 *:rounded-lg">
+      <div className="w-full h-full flex gap-2 p-1 *:bg-base-200 ">
         <PocketbaseInstancesContainer/>
       </div>
     </div>
