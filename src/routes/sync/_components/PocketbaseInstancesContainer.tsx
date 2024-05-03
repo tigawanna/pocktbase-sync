@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/shadcn/ui/accordion";
-import { usePoscketBaseInstance } from "./utils/use-pocketbase";
+
 
 interface PocketbaseInstancesContainerProps {}
 

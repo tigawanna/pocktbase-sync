@@ -5,8 +5,12 @@ import {
   PocketbaseInstanceAdminSignin,
   PocketbaseInstanceAdminSignout,
 } from "./PocketbaseInstanceAuth";
-import { CollectionsList } from "./list/CollectionsList";
+import {
+  CollectionsList,
+  CollectionsListSuspenseFallback,
+} from "./list/CollectionsList";
 import { useDynamicPoscketBaseInstance } from "./utils/use-pocketbase";
+import { Suspense } from "react";
 
 interface PocketbaseInstanceProps {
   instance: UsePoscketBaseInstance;
@@ -37,7 +41,7 @@ export function PocketbaseInstance({ instance }: PocketbaseInstanceProps) {
     );
   }
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center ">
+    <div className="w-full h-full flex flex-col  ">
       <div className="w-full flex flex-col md:flex-row  gap-2 p-[3%] justify-center items-center ">
         <div className="w-full flex flex-col justify-center items-center">
           <div className="">{admin.admin.email}</div>
@@ -50,8 +54,13 @@ export function PocketbaseInstance({ instance }: PocketbaseInstanceProps) {
           />
         </div>
       </div>
-      <CollectionsList instance={instance} localPB={primaryPB} remotePB={secondaryPB} />
-
+      <Suspense fallback={<CollectionsListSuspenseFallback />}>
+        <CollectionsList
+          instance={instance}
+          localPB={primaryPB}
+          remotePB={secondaryPB}
+        />
+      </Suspense>
     </div>
   );
 }

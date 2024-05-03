@@ -32,8 +32,8 @@ const query = useSuspenseQuery({
   }
 
   return (
-    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center ">
-      <ul className="w-full h-full flex flex-wrap items-center justify-center gap-2">
+    <div className="w-full min-h-screen h-full flex flex-col  ">
+      <ul className="w-full h-full flex flex-wrap  gap-2">
         {collection_list?.map((coll) => {
           return (
             <CollectiosnCard
@@ -47,6 +47,21 @@ const query = useSuspenseQuery({
       </ul>
     </div>
   );
+}
+
+
+
+export function CollectionsListSuspenseFallback(){
+return (
+  <ul className="w-full h-full flex flex-wrap  gap-2">
+    {Array.from({ length: 10 }).map((_, i) => {
+      return (
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+    <li key={i} className="relative h-44 w-[95%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group" />
+      ); 
+    })}
+  </ul>
+);
 }
 
 // <table className="table justify-between">

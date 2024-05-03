@@ -22,6 +22,7 @@ export function removeDuplicatesFromArray(strings: string[]): string[] {
 
 export function removeDuplicatesFromStringList(strings: string[]): string {
   const uniqueStrings: Set<string> = new Set();
+  // biome-ignore lint/complexity/noForEach: <explanation>
   strings.forEach((s) => uniqueStrings.add(s));
   if (uniqueStrings.size < 1) return "";
   return Array.from(uniqueStrings).join(",");
