@@ -5,22 +5,26 @@ import { CollectionRecordsInfo } from "./CollectionRecordsCount";
 import { Suspense } from "react";
 import type { UsePoscketBaseInstance } from "../../type";
 import { CloneCollection } from "./CloneCollection";
+import { Link } from "rakkasjs";
 
 interface CollectiosnCardProps {
   primaryPB: Client;
   secondaryPB: Client;
   collection: CollectionModel;
   instance: UsePoscketBaseInstance;
+  collectionName:string
 }
 
 export function CollectiosnCard({
   primaryPB,
   secondaryPB,
   collection,
+  collectionName,
   instance,
 }: CollectiosnCardProps) {
   return (
-    <li
+    <Link
+      href={`/sync/${collection.name}/${instance.instanceKey}`}
       key={collection.id}
       className={
         "relative w-[95%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group"
@@ -51,6 +55,6 @@ export function CollectiosnCard({
           </Suspense>
         </div>
       </div>
-    </li>
+    </Link>
   );
 }

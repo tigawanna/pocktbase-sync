@@ -42,6 +42,7 @@ const query = useSuspenseQuery({
               secondaryPB={secondaryPB}
               collection={coll}
               instance={instance}
+              collectionName={coll.name}
             />
           );
         })}
