@@ -43,12 +43,12 @@ export function PocketbaseInstancesContainer({}: PocketbaseInstancesContainerPro
       </div>
       <div className="w-full h-full flex gap-2 *:bg-base-200 *:rounded-lg">
         <Suspense
-          fallback={<div className="w-full h-[300px] bg-base-200 skeleton" />}
+          fallback={<div className="w-full h-screen bg-base-200 skeleton" />}
         >
           <PocketbaseInstance  instance={instances.primary} />
         </Suspense>
         <Suspense
-          fallback={<div className="w-full h-[300px] bg-base-200 skeleton" />}
+          fallback={<div className="w-full h-screen bg-base-200 skeleton" />}
         >
           <PocketbaseInstance  instance={instances.secondary} />
         </Suspense>
