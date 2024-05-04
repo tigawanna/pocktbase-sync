@@ -7,4 +7,19 @@ supports
 - creaeting all the data from the local instance to the remote one
 
 
-![sync pockectbase](public/sync.png)
+![sync pockectbase](https://github.com/tigawanna/pocktbase-sync/blob/main/public/sync.png?raw=trueg)
+
+You have to rn it locally to have access to the local pocketbase
+
+To get started, 
+```sh 
+git clone https://github.com/tigawanna/pocktbase-sync
+
+cd pocktbase-sync
+
+npm run dev
+
+``` 
+
+> [!WARNING]
+> Be carefull with teh delte button as you will be logged in as admin and are capable of by-passing any validations
