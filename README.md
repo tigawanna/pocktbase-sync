@@ -1,15 +1,10 @@
-# Lavington Liquor
+# Pocketbase sync
 
-> A fast, reliable, & affordable liquor store in Nairobi, Kenya. Explore our wide collection of liquor, Wines & Spirits.
+Sync your Pocketbase instance your local instance with the remote one 
 
-A free lance project rfor a client that serves as thier business website
+supports 
+- creating collections with all the rules and validations
+- creaeting all the data from the local instance to the remote one
 
-Completed project will include
 
-- inventory list that will be a the product list the customers see and double as invetory management for admin users that will allow tem to add more items update, monitor for expiry dates/low stock
-users will be able tolist and seach for products by name and browse by category
-
-- add to cart
-
-- user authentication for ratings
-- *glovo ,jumia foods , uber eats intergration**
+![sync pockectbase](public/sync.png)
