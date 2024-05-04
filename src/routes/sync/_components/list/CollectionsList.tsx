@@ -3,19 +3,25 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import type Client from "pocketbase";
 import { CollectionsCard} from "./card/CollectionsCard";
 import type{ UsePoscketBaseInstance } from "../type";
+import { ListPagination } from "@/components/pagination/ReactresponsivePagination";
 
 interface CollectionsListProps {
   primaryPB: Client;
   secondaryPB: Client;
   instance: UsePoscketBaseInstance;
+  searchParamKey: string;
+  debouncedValue: string;
+  searchParam: string;
 }
 
-export function CollectionsList({ primaryPB, secondaryPB, instance }: CollectionsListProps) {
-const query = useSuspenseQuery({
-    queryKey: ["collections",primaryPB.baseUrl],
+export function CollectionsList({ primaryPB, secondaryPB, instance,debouncedValue,searchParam, searchParamKey }: CollectionsListProps) {
+  const page = debouncedValue.length > 0 ? 1 : searchParam;
+  const query = useSuspenseQuery({
+    queryKey: ["collections",primaryPB.baseUrl,debouncedValue,page],
     queryFn: () => {
-      return pbTryCatchWrapper(primaryPB.collections.getList(1,3,{
+      return pbTryCatchWrapper(primaryPB.collections.getList(+page,12,{
         sort: "-name",
+        filter: `name ~ "${debouncedValue}"`,
       }));
     },
     staleTime: 1000 * 60 * 60 * 24,
@@ -49,6 +55,12 @@ const query = useSuspenseQuery({
           );
         })}
       </ul>
+      <div className=" w-full">
+        <ListPagination
+          query_key={searchParamKey}
+          total_pages={query?.data?.data?.totalPages ?? 1}
+        />
+      </div>
     </div>
   );
 }

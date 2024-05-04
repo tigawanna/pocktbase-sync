@@ -1,42 +1,23 @@
-import { pbTryCatchWrapper } from "@/lib/pb/utils";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import type Client from "pocketbase";
 import { TimeCompponent } from "@/components/wrappers/TimeCompponent";
 import { History } from "lucide-react";
+import type { ListResult, RecordModel } from "pocketbase";
 
 interface CollectionRecordsInfoProps {
-  pb: Client;
-  collectionName: string;
+  data: ListResult<RecordModel> | null;
+  instance:"primary" | "secondary"
 }
 
-export function CollectionRecordsInfo({
-  pb,
-  collectionName,
-}: CollectionRecordsInfoProps) {
-  const query = useSuspenseQuery({
-    queryKey: ["collections", collectionName, pb.baseUrl],
-    queryFn: () => {
-      return pbTryCatchWrapper(
-        pb.collection(collectionName).getList(1, 1, {
-          sort: "-created",
-        }),
-      );
-    },
-    staleTime: 1000 * 60 * 60 * 24,
-  });
-  const data = query.data?.data;
-  const count_records_error = query.data?.error;
+export function CollectionRecordsInfo({ data,instance }: CollectionRecordsInfoProps) {
   const total_records = data?.totalItems;
 
-  if (count_records_error) {
-    return null;
-  }
   return (
-    <div className="w-full flex items-center justify-betweengap-2">
-      <div className="w-full"> Total: {total_records}</div>
+    <div className="w-full flex items-center justify-between gap-0.5 text-xs">
+      <div className="w-full">
+          total in {instance}: {total_records}
+      </div>
       {data?.items[0]?.created && (
-        <div className="w-full flex gap-1 text-sm  items-center">
-          <History className="size-4" />
+        <div className="w-full flex   items-center">
+          <History className="size-3" />
           <TimeCompponent
             className=""
             relative

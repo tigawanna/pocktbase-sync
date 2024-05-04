@@ -5,12 +5,8 @@ import {
   PocketbaseInstanceAdminSignin,
   PocketbaseInstanceAdminSignout,
 } from "./PocketbaseInstanceAuth";
-import {
-  CollectionsList,
-  CollectionsListSuspenseFallback,
-} from "./list/CollectionsList";
 import { useDynamicPoscketBaseInstance } from "./utils/use-pocketbase";
-import { Suspense } from "react";
+import { CollectionListContainer } from "./list/CollectionListContainer";
 
 interface PocketbaseInstanceProps {
   instance: UsePoscketBaseInstance;
@@ -54,13 +50,12 @@ export function PocketbaseInstance({ instance }: PocketbaseInstanceProps) {
           />
         </div>
       </div>
-      <Suspense fallback={<CollectionsListSuspenseFallback />}>
-        <CollectionsList
-          instance={instance}
-          primaryPB={primaryPB}
-          secondaryPB={secondaryPB}
-        />
-      </Suspense>
+
+      <CollectionListContainer
+        instance={instance}
+        primaryPB={primaryPB}
+        secondaryPB={secondaryPB}
+      />
     </div>
   );
 }

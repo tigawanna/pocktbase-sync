@@ -1,11 +1,11 @@
 import { PBTimeStamp } from "@/lib/pb/components/PBTimestamp";
 import type { CollectionModel } from "pocketbase";
 import type Client from "pocketbase";
-import { CollectionRecordsInfo } from "./CollectionRecordsCount";
 import { Suspense } from "react";
 import type { UsePoscketBaseInstance } from "../../type";
-import { CloneCollection } from "./CloneCollection";
+import { CollectionCardCloneActions } from "./CollectionCardCloneActions";
 import { Link } from "rakkasjs";
+import { CollectionCardDelete } from "./CollectionCardDelete";
 
 interface CollectionsCardProps {
   primaryPB: Client;
@@ -41,8 +41,9 @@ export function CollectionsCard({
           label="Created"
           className="w-full justify-start"
         />
+           <div className="w-full flex  justify-between gap-2 ">
         <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
-          <CloneCollection
+          <CollectionCardCloneActions
             collection={collection}
             instance={instance}
             primaryPB={primaryPB}
@@ -50,14 +51,9 @@ export function CollectionsCard({
           />
         </Suspense>
 
-        <div className="w-full flex justify-between gap-2 ">
-          <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
-            <CollectionRecordsInfo
-              pb={primaryPB}
-              collectionName={collection.name}
-            />
-          </Suspense>
-        </div>
+        <CollectionCardDelete primaryPB={primaryPB} collection={collection}/>
+
+           </div>
       </div>
     </li>
   );

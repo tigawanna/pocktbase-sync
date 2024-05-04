@@ -14,9 +14,9 @@ export function ListPagination({ query_key,total_pages }: ListingsPaginationProp
 
   return (
     <div className="w-full  flex items-center justify-center">
-      <ClientSuspense fallback={<div className="w-full h-5"></div>}>
+      <ClientSuspense fallback={<div className="w-full h-5"/>}>
         <ResponsivePagination
-          current={parseInt(page_param??"1")}
+          current={Number.parseInt(page_param??"1")}
           total={total_pages}
           onPageChange={(e) => {
             updateSeachparams(e.toString());
