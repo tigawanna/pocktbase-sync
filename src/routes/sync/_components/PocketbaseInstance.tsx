@@ -7,6 +7,12 @@ import {
 } from "./PocketbaseInstanceAuth";
 import { useDynamicPoscketBaseInstance } from "./utils/use-pocketbase";
 import { CollectionListContainer } from "./list/CollectionListContainer";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/shadcn/ui/accordion";
 
 interface PocketbaseInstanceProps {
   instance: UsePoscketBaseInstance;
@@ -38,18 +44,30 @@ export function PocketbaseInstance({ instance }: PocketbaseInstanceProps) {
   }
   return (
     <div className="w-full h-full flex flex-col  ">
-      <div className="w-full flex flex-col md:flex-row  gap-2 p-[3%] justify-center items-center ">
-        <div className="w-full flex flex-col justify-center items-center">
-          <div className="">{admin.admin.email}</div>
-          <div className="text-sm line-clamp-1">{primaryPB.baseUrl}</div>
-        </div>
-        <div className="w-full flex justify-center items-center  ">
-          <PocketbaseInstanceAdminSignout
-            pb={primaryPB}
-            instanceKey={instance.instanceKey}
-          />
-        </div>
+      <div className="w-full h-full flex flex-col items-center justify-center px-5">
+        <Accordion type="single" collapsible className="w-[90%] ">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Admin</AccordionTrigger>
+            <AccordionContent>
+              <div className="w-full flex flex-col gap-3 md:flex-row">
+                <div className="w-full flex flex-col justify-center items-center">
+                  <div className="">{admin.admin.email}</div>
+                  <div className="text-sm line-clamp-1">
+                    {primaryPB.baseUrl}
+                  </div>
+                </div>
+                <div className="w-full flex justify-center items-center  ">
+                  <PocketbaseInstanceAdminSignout
+                    pb={primaryPB}
+                    instanceKey={instance.instanceKey}
+                  />
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
+
 
       <CollectionListContainer
         instance={instance}

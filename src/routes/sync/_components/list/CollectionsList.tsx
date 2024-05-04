@@ -40,7 +40,7 @@ export function CollectionsList({ primaryPB, secondaryPB, instance,debouncedValu
   }
 
   return (
-    <div className="w-full min-h-screen h-full flex flex-col  ">
+    <div className="w-full min-h-screen h-full flex flex-col gap-3 pb-3 ">
       <ul className="w-full h-full flex flex-wrap  gap-2">
         {collection_list?.items?.map((coll) => {
           return (
