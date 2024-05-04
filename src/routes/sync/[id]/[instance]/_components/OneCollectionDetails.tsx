@@ -1,6 +1,8 @@
+import { sonnerToast } from "@/components/shadcn/misc/sonner-taost";
 import { Button } from "@/components/shadcn/ui/button";
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { pbTryCatchWrapper } from "@/lib/pb/utils";
+import { SpinnerButton } from "@/lib/tanstack/components/SpinnerButton";
 import { useMutation, useSuspenseQueries } from "@tanstack/react-query";
 import { FileWarningIcon, MessageCircleWarning } from "lucide-react";
 import type Client from "pocketbase";
@@ -41,11 +43,33 @@ export function OneCollectionDetails({
     ],
   });
 
-  const import_collection_to_secondary_mutation =useMutation({
-    mutationFn: async (collections:CollectionModel[]) => {
-      return pbTryCatchWrapper(secondaryPB.collections.import(collections,false));
-    }
-  })
+  const import_collection_to_secondary_mutation = useMutation({
+    mutationFn: async (collections: CollectionModel[]) => {
+      return pbTryCatchWrapper(
+        secondaryPB.collections.import(collections, false),
+      );
+    },
+    meta: {
+      invalidates: ["collection"],
+    },
+    onSuccess: (data) => {
+      if (data.data) {
+        sonnerToast({
+          title: `${collectionName} Succesfully imported`,
+        });
+      }
+      if (data.error) {
+        sonnerToast({
+          title: `Error importing ${collectionName}`,
+          type: "error",
+          options: {
+            description: data.error.message,
+          },
+        });
+      }
+    },
+  });
+
   const primaryCollection = query[0].data.data;
   const secondaryCollection = query[1].data.data;
 
@@ -56,12 +80,21 @@ export function OneCollectionDetails({
           <FileWarningIcon className="text-warning" />
           This collection doesn't exist in the other pocketbase instance
         </span>
-        <Button
-          type="button"
-          className=" flex  items-center justify-center gap-2 text-lg"
-        >
-          <FaClone /> clone {collectionName}
-        </Button>
+        {primaryCollection && (
+          <SpinnerButton
+            onClick={() =>
+              import_collection_to_secondary_mutation.mutate([
+                primaryCollection,
+              ])
+            }
+            mutation={import_collection_to_secondary_mutation}
+            label={
+              <span className="flex gap-2 items-center justify-center ">
+                <FaClone /> clone {collectionName}
+              </span>
+            }
+          />
+        )}
       </div>
     );
   }

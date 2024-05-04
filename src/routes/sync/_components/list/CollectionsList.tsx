@@ -1,7 +1,7 @@
 import { pbTryCatchWrapper } from "@/lib/pb/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import type Client from "pocketbase";
-import { CollectiosnCard } from "./card/CollectiosnCard";
+import { CollectionsCard} from "./card/CollectionsCard";
 import type{ UsePoscketBaseInstance } from "../type";
 
 interface CollectionsListProps {
@@ -14,7 +14,9 @@ export function CollectionsList({ primaryPB, secondaryPB, instance }: Collection
 const query = useSuspenseQuery({
     queryKey: ["collections",primaryPB.baseUrl],
     queryFn: () => {
-      return pbTryCatchWrapper(primaryPB.collections.getFullList({}));
+      return pbTryCatchWrapper(primaryPB.collections.getList(1,3,{
+        sort: "-name",
+      }));
     },
     staleTime: 1000 * 60 * 60 * 24,
   });
@@ -34,9 +36,9 @@ const query = useSuspenseQuery({
   return (
     <div className="w-full min-h-screen h-full flex flex-col  ">
       <ul className="w-full h-full flex flex-wrap  gap-2">
-        {collection_list?.map((coll) => {
+        {collection_list?.items?.map((coll) => {
           return (
-            <CollectiosnCard
+            <CollectionsCard
               key={coll.id}
               primaryPB={primaryPB}
               secondaryPB={secondaryPB}

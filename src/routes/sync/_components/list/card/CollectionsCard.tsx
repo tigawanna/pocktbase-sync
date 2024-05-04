@@ -7,44 +7,48 @@ import type { UsePoscketBaseInstance } from "../../type";
 import { CloneCollection } from "./CloneCollection";
 import { Link } from "rakkasjs";
 
-interface CollectiosnCardProps {
+interface CollectionsCardProps {
   primaryPB: Client;
   secondaryPB: Client;
   collection: CollectionModel;
   instance: UsePoscketBaseInstance;
-  collectionName:string
+  collectionName: string;
 }
 
-export function CollectiosnCard({
+export function CollectionsCard({
   primaryPB,
   secondaryPB,
   collection,
   collectionName,
   instance,
-}: CollectiosnCardProps) {
+}: CollectionsCardProps) {
   return (
-    <Link
-      href={`/sync/${collection.name}/${instance.instanceKey}`}
+    <li
       key={collection.id}
       className={
         "relative w-[95%] flex flex-col justify-between bg-base-300 p-2 gap-2 rounded-lg group"
       }
     >
-      <h2 className="text-2xl "> {collection.name}</h2>
+      <Link
+        className="text-2xl hover:link-hover hover:text-secondary-content"
+        href={`/sync/${collection.name}/${instance.instanceKey}`}
+      >
+        {collection.name}
+      </Link>
       <div className="w-full flex flex-col justify-between gap-2 ">
         <PBTimeStamp
           timestamp={collection.created}
           label="Created"
           className="w-full justify-start"
         />
-        {/* <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
+        <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
           <CloneCollection
             collection={collection}
             instance={instance}
             primaryPB={primaryPB}
             secondaryPB={secondaryPB}
           />
-        </Suspense> */}
+        </Suspense>
 
         <div className="w-full flex justify-between gap-2 ">
           <Suspense fallback={<div className="h-14 bg-base-100 skeleton" />}>
@@ -55,6 +59,6 @@ export function CollectiosnCard({
           </Suspense>
         </div>
       </div>
-    </Link>
+    </li>
   );
 }
