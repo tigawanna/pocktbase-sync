@@ -22,4 +22,4 @@ npm run dev
 ``` 
 
 > [!WARNING]
-> Be carefull with teh delte button as you will be logged in as admin and are capable of by-passing any validations
+> You will be logged in as admin and are capable of by-passing any validations
